@@ -8,6 +8,7 @@ public class UIController : MonoBehaviour
 
     public Image mainMenu;
     public Image gameplayUI;
+    public Image[] lifes;
      void Awake(){
         if (Instance == null)
         {
@@ -27,6 +28,14 @@ public class UIController : MonoBehaviour
         gameplayUI.transform.DOLocalMoveY(0,.75f).SetEase(Ease.OutCubic).SetDelay(.3f);
         AudioManager.Instance.PlayEngine();
         GameController.Instance.StartGame();
+    }
+
+    public void SetHealthAmt(int health)
+    {
+        for(int i = lifes.Length -1; i > health - 1; i--)
+        {
+            lifes[i].enabled = false;
+        }
     }
     
 

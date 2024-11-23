@@ -3109,6 +3109,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 300639803}
   gameplayUI: {fileID: 1919732496}
+  lifes:
+  - {fileID: 7055581}
+  - {fileID: 1516251492}
+  - {fileID: 1754312138}
 --- !u!114 &903499141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5233,7 +5237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   banana: {fileID: 1263760832}
-  bananaTarget: {fileID: 0}
+  bananaTarget: {fileID: 1015362140}
   playerList:
   - {fileID: 1856656711}
   currentPlayerIndex: 0
