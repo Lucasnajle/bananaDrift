@@ -35,7 +35,6 @@ public class AudioManager : MonoBehaviour
         audioSources = GetComponentsInChildren<AudioSource>();
         PlayMusic();
         PlayEngine();
-        StartCoroutine(StartEngine()); // SACAR EL DELAY ES PARA EL TEST NADA MAS!
     }
 
     void Update()
@@ -55,12 +54,13 @@ public class AudioManager : MonoBehaviour
         audioSources[ENGINE_CHANNEL].volume = DEFAULT_VOLUME_MUSIC;
         audioSources[ENGINE_CHANNEL].loop = true;
         audioSources[ENGINE_CHANNEL].pitch = .5f;
+        StartCoroutine(StartEngine());
         audioSources[ENGINE_CHANNEL].Play();
     }
 
     public IEnumerator StartEngine()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1);
         float enginePitch = .5f;
 
         DOTween.To(() => enginePitch, x => enginePitch = x, 1f, 1f).OnUpdate(() =>{

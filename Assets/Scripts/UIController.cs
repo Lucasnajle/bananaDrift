@@ -1,16 +1,34 @@
 using UnityEngine;
-
+using DG.Tweening;
+using UnityEngine.UI;
+using Unity.VisualScripting;
 public class UIController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+    public static UIController Instance;
+
+    public Image mainMenu;
+    public Image gameplayUI;
+     void Awake(){
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GameStart()
     {
-        
+        mainMenu.transform.DOLocalMoveY(1000,.75f).SetEase(Ease.OutCubic);
+        gameplayUI.transform.DOLocalMoveY(0,.75f).SetEase(Ease.OutCubic).SetDelay(.3f);
+        AudioManager.Instance.PlayEngine();
+        GameController.Instance.StartGame();
     }
+    
+
+
 }
