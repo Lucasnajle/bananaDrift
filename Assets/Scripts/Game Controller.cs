@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Splines;
 public class GameController : MonoBehaviour
 {
-    public GameController Instance;
+    public static GameController Instance;
     public Transform banana;
     public List<Transform> playerList;
     public int currentPlayerIndex = 0;
@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        this.Instance = this;
+        Instance = this;
     }
 
 

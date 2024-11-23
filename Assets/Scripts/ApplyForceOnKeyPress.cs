@@ -11,17 +11,17 @@ public class ApplyForceOnKeyPress : MonoBehaviour
         // Check for Left Arrow key press
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            ApplyForce(Vector3.left + upwardsCoef * Vector3.up);  // Apply force to the left (local space)
+            ApplyForce(Vector3.left + upwardsCoef * Vector3.up, forceAmount);  // Apply force to the left (local space)
         }
 
         // Check for Right Arrow key press
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            ApplyForce(Vector3.right + upwardsCoef * Vector3.up); // Apply force to the right (local space)
+            ApplyForce(Vector3.right + upwardsCoef * Vector3.up, forceAmount); // Apply force to the right (local space)
         }
     }
 
-    void ApplyForce(Vector3 direction)
+    public void ApplyForce(Vector3 direction, float forceAmount)
     {
         if (targetRigidbody != null)
         {
