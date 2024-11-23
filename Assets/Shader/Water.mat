@@ -61,10 +61,10 @@ Material:
     m_Floats:
     - _Depth: 1.5
     - _Displacement: 1.1
-    - _Normal_Strength: 0.5
+    - _Normal_Strength: 0.7
     - _QueueControl: 0
     - _QueueOffset: -21
-    - _Smoothness: 0.85
+    - _Smoothness: 0.8
     - _Strength: 1.02
     - _Wave_Flow: 100
     - _Wave_Force: 150
