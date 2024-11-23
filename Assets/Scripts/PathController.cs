@@ -46,6 +46,6 @@ public class PathController : MonoBehaviour
 
     private void SetDistanceText()
     {
-        remainingDistanceText.text = $"{remainingDistance.ToString("00.00")} m";
+        remainingDistanceText.text = $"{remainingDistance.ToString("00")}";
     }
 }
