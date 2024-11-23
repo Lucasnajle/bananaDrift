@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Splines;
 public class GameController : MonoBehaviour
 {
     public GameController Instance;
@@ -8,6 +8,9 @@ public class GameController : MonoBehaviour
     public List<Transform> playerList;
     public int currentPlayerIndex = 0;
     public float waveHeight;
+
+    private float pathLength = 0;
+    private PathController pathController;
     public enum Status {
         IN_GAME,
         PAUSE,
@@ -21,4 +24,6 @@ public class GameController : MonoBehaviour
     {
         this.Instance = this;
     }
+
+
 }
