@@ -60,16 +60,17 @@ Material:
     m_Ints: []
     m_Floats:
     - _Depth: 1.5
-    - _Displacement: 5
-    - _Normal_Strength: 0.75
+    - _Displacement: 1.1
+    - _Normal_Strength: 0.5
     - _QueueControl: 0
     - _QueueOffset: -21
-    - _Smoothness: 0.8
-    - _Strength: 0.75
-    - _Wave_Force: 50
+    - _Smoothness: 0.85
+    - _Strength: 1.02
+    - _Wave_Flow: 100
+    - _Wave_Force: 150
     m_Colors:
-    - _Deep_Water_Color: {r: 0.03702387, g: 0.49397182, b: 0.6037736, a: 0.7607843}
+    - _Deep_Water_Color: {r: 0.24554999, g: 0.5193748, b: 0.5849056, a: 0.7607843}
     - _Shallow_Water_Color: {r: 0.6179246, g: 0.98018855, b: 1, a: 0.509804}
-    - _Tilling: {r: 5, g: 5, b: 0, a: 0}
+    - _Tilling: {r: 300, g: 300, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
