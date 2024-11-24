@@ -90,7 +90,7 @@ public class AudioManager : MonoBehaviour
         audioSources[currentChannelIndex].clip = audios[SFXIdx];
         audioSources[currentChannelIndex].loop = loop;
         audioSources[currentChannelIndex].volume = volume;
-        audioSources[currentChannelIndex].pitch = 1 + Random.Range(-.05f,.05f);
+        audioSources[currentChannelIndex].pitch = 1 + Random.Range(-.05f, .05f);
 
         audioSources[currentChannelIndex].Play();
 

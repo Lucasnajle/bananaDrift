@@ -36,6 +36,7 @@ public class UIController : MonoBehaviour
     {
         
         gameplayUI.transform.DOLocalMoveY(100,.75f).SetEase(Ease.OutCubic).SetDelay(2f);
+        mainMenu.transform.DOLocalMoveY(1000,.75f).SetEase(Ease.OutCubic);
         AudioManager.Instance.PlayEngine();
         GameController.Instance.StartGame();
     }
