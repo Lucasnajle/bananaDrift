@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+
 public class GameController : MonoBehaviour
 {
     public static GameController Instance;
     public Transform banana;
     public Transform bananaTarget;
     public List<Transform> playerList;
+    public const int MAX_PLAYER = 1;
     public int currentPlayerIndex = 0;
     public float waveHeight;
 
@@ -50,5 +52,32 @@ public class GameController : MonoBehaviour
         return playerList[currentPlayerIndex];
     }
 
+    public void Win()
+    {
+        cameras[0].SetActive(false);
+        cameras[1].SetActive(false);
+        cameras[2].SetActive(true);
 
+        bananaTarget.GetComponent<PathController>().speed = 0f;
+        banana.GetComponent<BananaMovementController>().bananaForce = 0;
+ 
+        GetCurrentPlayer().GetComponent<Player>().SetKinematic(true);
+        banana.GetComponent<Rigidbody>().isKinematic = true;
+
+        UIController.Instance.Win();
+    }
+
+    public void Lose()
+    {
+        cameras[0].SetActive(false);
+        cameras[1].SetActive(false);
+        cameras[2].SetActive(true);
+
+        bananaTarget.GetComponent<PathController>().speed = 0f;
+        banana.GetComponent<BananaMovementController>().bananaForce = 0;
+
+        banana.GetComponent<Rigidbody>().isKinematic = true;
+
+        UIController.Instance.Lose();
+    }
 }

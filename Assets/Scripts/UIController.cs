@@ -2,11 +2,14 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class UIController : MonoBehaviour
 {
     public static UIController Instance;
 
     public Image mainMenu;
+    public Image winUI;
+    public Image loseUI;
     public TextMeshProUGUI remainingDistanceText;
     public Image gameplayUI;
     public Image[] lifes;
@@ -36,6 +39,18 @@ public class UIController : MonoBehaviour
         GameController.Instance.StartGame();
     }
 
+    public void Win()
+    {
+        gameplayUI.transform.DOLocalMoveY(1000,.75f).SetEase(Ease.OutCubic);
+        winUI.transform.DOLocalMoveY(0,.75f).SetEase(Ease.OutCubic).SetDelay(2f);
+    }
+
+    public void Lose()
+    {
+        gameplayUI.transform.DOLocalMoveY(1000,.75f).SetEase(Ease.OutCubic);
+        loseUI.transform.DOLocalMoveY(0,.75f).SetEase(Ease.OutCubic).SetDelay(2f);
+    }
+
     public void SetHealthAmt(int health)
     {
         for(int i = lifes.Length -1; i > health - 1; i--)
@@ -49,6 +64,10 @@ public class UIController : MonoBehaviour
         Application.Quit();
     }
     
-
+    public void Restart()
+    {
+        Destroy(gameObject);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+    }
 
 }

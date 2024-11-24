@@ -11,6 +11,13 @@ public class HombreAlAgua : MonoBehaviour
         {
             Debug.Log("Entered the trigger zone of the plane!");
             Instantiate(particlePrefab, transform.position, Quaternion.identity);
+
+            UIController.Instance.SetHealthAmt(GameController.MAX_PLAYER - GameController.Instance.currentPlayerIndex - 1);
+            if (GameController.Instance.currentPlayerIndex + 1 >= GameController.MAX_PLAYER) {
+                GameController.Instance.Lose();
+            } else {
+                GameController.Instance.currentPlayerIndex ++;
+            }
         }
     }
 }
