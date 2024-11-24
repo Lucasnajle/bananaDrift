@@ -9,7 +9,7 @@ public class ObjectLaunch : MonoBehaviour
     public float launchForce = 10f;
     public float adjTrajFactor = 10f;
     public float mass = 10f;
-    
+    public int SFXIdx = 2;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -26,6 +26,8 @@ public class ObjectLaunch : MonoBehaviour
 
     void ThrowProjectile(Transform target, GameObject projectile)
     {
+        if (SFXIdx >= 0)
+            AudioManager.Instance.PlayAudio(SFXIdx);
         // Add a Rigidbody component to the projectile
         Rigidbody projectileRb = projectile.AddComponent<Rigidbody>();
         projectileRb.mass = mass;
