@@ -309,8 +309,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.061514877, z: 0, w: 0.9981062}
-  m_LocalPosition: {x: -59.607628, y: 2.4, z: -45.199455}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -60.59, y: 2.4, z: -45.260002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -732,7 +732,6 @@ MonoBehaviour:
   spline: {fileID: 1219221630}
   speed: 3
   remainingDistance: 0
-  remainingDistanceText: {fileID: 544822817}
 --- !u!4 &1015362140
 Transform:
   m_ObjectHideFlags: 0
@@ -1035,8 +1034,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1266157375}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.061514877, z: -0, w: 0.9981062}
-  m_LocalPosition: {x: -59.607628, y: 2.4, z: -45.199455}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -60.59, y: 2.4, z: -45.260002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1173,7 +1172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1350978971
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1272,9 +1271,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   banana: {fileID: 0}
+  bananaTarget: {fileID: 0}
   playerList: []
   currentPlayerIndex: 0
   waveHeight: 0
+  cameras: []
   currentStatus: 0
   timer: 0
 --- !u!4 &1940108198
@@ -1347,8 +1348,6 @@ MonoBehaviour:
   elipseA: 260
   elipseB: 90
   startingPos: {x: 0, y: -37, z: 0}
-  hips: {fileID: 0}
-  handle: {fileID: 0}
   HIPS_OFFSET: 10
 --- !u!114 &2043898949
 MonoBehaviour:
@@ -1436,6 +1435,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2104724686687174434, guid: ee5943cf509ce6249bbce555f84b0db5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3070083705593365308, guid: ee5943cf509ce6249bbce555f84b0db5, type: 3}
       propertyPath: m_Name
       value: GreatBanana
@@ -1444,6 +1447,30 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[0]'
       value: 
       objectReference: {fileID: 1015362140}
+    - target: {fileID: 5004332124607549728, guid: ee5943cf509ce6249bbce555f84b0db5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004332124607549728, guid: ee5943cf509ce6249bbce555f84b0db5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004332124607549728, guid: ee5943cf509ce6249bbce555f84b0db5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004332124607549728, guid: ee5943cf509ce6249bbce555f84b0db5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004332124607549728, guid: ee5943cf509ce6249bbce555f84b0db5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6289813336708398489, guid: ee5943cf509ce6249bbce555f84b0db5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
