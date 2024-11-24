@@ -14,9 +14,10 @@ public class ObjectLaunch : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-        if (other.gameObject.name.Contains("Hips"))
+        if (other.gameObject.name.Contains("Root"))
         {
             GameObject projectile = Instantiate(projectilePrefab, launchPoint.position, Quaternion.identity);
+            Debug.Log("PESCAOO");
 
             ThrowProjectile(other.gameObject.transform, projectile);
         }
@@ -33,7 +34,7 @@ public class ObjectLaunch : MonoBehaviour
         // Set the initial velocity of the projectile
         projectileRb.linearVelocity = launchPoint.forward * launchForce;
 
-        StartCoroutine(AdjustTrajectory(projectileRb, target));
+        //StartCoroutine(AdjustTrajectory(projectileRb, target));
 
         Destroy(projectile, 10f); // Destroy the projectile after the specified lifespan
 
