@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Splines;
+using DG.Tweening;
 public class GameController : MonoBehaviour
 {
     public static GameController Instance;
@@ -16,8 +16,17 @@ public class GameController : MonoBehaviour
     public void StartGame()
     {
         cameras[1].SetActive(true);
-        bananaTarget.GetComponent<PathController>().speed = 10;
-        banana.GetComponent<BananaMovementController>().bananaForce = 1000;
+        float bananaTargetSpeed = 0f;
+        float MAX_TARGET_SPEED = 2f;
+        float duration = 2f;
+        DOTween.To(() => bananaTargetSpeed, x => bananaTargetSpeed = x, MAX_TARGET_SPEED, duration).OnUpdate(() =>{
+            bananaTarget.GetComponent<PathController>().speed = bananaTargetSpeed;
+        });
+        float bananaForce = 0f;
+        float MAX_BANANA_FORCE = 1000f;
+        DOTween.To(() => bananaForce, x => bananaForce = x, MAX_BANANA_FORCE, duration).OnUpdate(() =>{
+            banana.GetComponent<BananaMovementController>().bananaForce = bananaForce;
+        }).SetDelay(duration);
     }
     public enum Status {
         IN_GAME,

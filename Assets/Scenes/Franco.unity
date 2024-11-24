@@ -5511,7 +5511,7 @@ MonoBehaviour:
   startingPos: {x: 0, y: -37, z: 0}
   hips: {fileID: 745702097}
   handle: {fileID: 650853809}
-  HIPS_OFFSET: 200
+  HIPS_OFFSET: 800
 --- !u!114 &2090389664
 MonoBehaviour:
   m_ObjectHideFlags: 0

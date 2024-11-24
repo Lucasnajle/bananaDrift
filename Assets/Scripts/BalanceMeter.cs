@@ -20,26 +20,24 @@ public class BalanceMeter : MonoBehaviour
     public Transform hips;
     public Transform handle;
 
-
-
     private float initialDistance = 0;
     private float currentDistance = 0;
-
+    private float initialPosX = 0;
     public float HIPS_OFFSET = 10;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         arrow = GetComponentsInChildren<Image>()[1];
-
-        initialDistance = handle.position.x - hips.position.x;//Vector3.Distance(hips.position, handle.position);
+        initialPosX = hips.localPosition.x;
+        initialDistance = 0;//handle.forward.x - hips.forward.x;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentDistance = handle.position.x - hips.position.x;//Vector3.Distance(hips.position, handle.position);
+        currentDistance =  initialPosX - hips.localPosition.x;//handle.transorm.position.x - hips.transorm.position.x;
         currentAngle = (initialDistance - currentDistance) * HIPS_OFFSET;
         currentAngle = Mathf.Clamp(currentAngle, -MAX_ANGLE, MAX_ANGLE);
         currentAngleRad = currentAngle * Mathf.Deg2Rad;
