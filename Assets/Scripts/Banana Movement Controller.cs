@@ -13,7 +13,9 @@ public class BananaMovementController : MonoBehaviour
 
     private Vector3 originalPosition;
     private Vector3 velocity = Vector3.zero;
-    public float oscilationAmp = 0.1f; // How far it moves
+    public float oscilationAmpX = 0.1f;
+    public float oscilationAmpY = 0.1f;
+    public float oscilationAmpZ = 0.1f;
     public float frequency = 10f; // Speed of vibration
     public float springStrength = 10f; // Strength of the spring force
     public float damping = 0.5f; // Damping to prevent oscillation over time
@@ -58,12 +60,12 @@ public class BananaMovementController : MonoBehaviour
         //MOVIMIENTO LOCAL
 
         // Vibrations
-        float offsetX = Mathf.Sin(Time.time * frequency);
-        float offsetY = Mathf.Sin(Time.time * frequency);
-        float offsetZ = Mathf.Cos(Time.time * frequency);
+        float offsetX = Mathf.Sin(Time.time * frequency) * oscilationAmpX;
+        float offsetY = Mathf.Sin(Time.time * frequency) * oscilationAmpY;
+        float offsetZ = Mathf.Cos(Time.time * frequency) * oscilationAmpZ;
 
         Vector3 targetPosition = new Vector3(offsetX, offsetY, offsetZ);
-        Vector3 forceDirection = targetPosition * oscilationAmp;
+        Vector3 forceDirection = targetPosition;
 
         // Spring force to return the object to its original Y position
         float springForce = (originalPosition.y - rb.position.y) * springStrength;

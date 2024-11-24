@@ -13,7 +13,7 @@ public class PathController : MonoBehaviour
 
     public float remainingDistance = 0;
 
-    public TextMeshProUGUI remainingDistanceText;
+
 
     private void Awake()
     {
@@ -46,6 +46,6 @@ public class PathController : MonoBehaviour
 
     private void SetDistanceText()
     {
-        remainingDistanceText.text = $"{remainingDistance.ToString("00")}";
+        UIController.Instance.SetRemainingText($"{remainingDistance.ToString("00")}");
     }
 }
