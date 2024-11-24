@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Banana Drift.sln"
+    "dotnet.defaultSolution": "bananaDrift.sln"
 }
