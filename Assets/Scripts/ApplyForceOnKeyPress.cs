@@ -29,4 +29,11 @@ public class ApplyForceOnKeyPress : MonoBehaviour
             targetRigidbody.AddForce(targetRigidbody.transform.TransformDirection(direction) * forceAmount, ForceMode.Impulse);
         }
     }
+
+    void OnCollisionEnter(Collision collision) {
+        if (collision.transform.tag == "Obstacle") {
+            collision.rigidbody.useGravity = true;
+
+        }
+    }
 }
