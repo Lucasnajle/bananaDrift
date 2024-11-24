@@ -17,6 +17,8 @@ public class AudioManager : MonoBehaviour
     private const float DEFAULT_VOLUME = .1f;
     private int currentChannelIndex = 2;
 
+    private float elapsedTime = Mathf.Infinity;
+
     void Awake(){
         if (Instance == null)
         {
@@ -39,6 +41,10 @@ public class AudioManager : MonoBehaviour
 
     void Update()
     {
+        if(Time.time  >= elapsedTime)
+        {
+            elapsedTime = Time.time + 3;
+        }
         
     }
 
@@ -57,6 +63,17 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(StartEngine());
         audioSources[ENGINE_CHANNEL].Play();
     }
+    public void RandomizeEngine()
+    {
+        
+        float enginePitch = 1 + Random.Range(-.2f, .2f);
+
+        DOTween.To(() => enginePitch, x => enginePitch = x, 1f, 1f).OnUpdate(() =>{
+            audioSources[ENGINE_CHANNEL].pitch = enginePitch;
+        });
+        
+    }
+    
 
     public IEnumerator StartEngine()
     {
@@ -65,7 +82,7 @@ public class AudioManager : MonoBehaviour
 
         DOTween.To(() => enginePitch, x => enginePitch = x, 1f, 1f).OnUpdate(() =>{
             audioSources[ENGINE_CHANNEL].pitch = enginePitch;
-        });
+        }).OnComplete(()=> {elapsedTime = Time.time + 3;});
         
     }
     public void PlayAudio(int SFXIdx, float volume = DEFAULT_VOLUME, bool loop = false)
