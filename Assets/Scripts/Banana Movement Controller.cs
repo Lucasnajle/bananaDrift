@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class BananaMovementController : MonoBehaviour
 {
@@ -23,6 +24,13 @@ public class BananaMovementController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         originalPosition = transform.position;
+    }
+
+    void OnCollisionEnter(Collision collision) {
+        if (collision.transform.tag == "Obstacle") {
+            collision.rigidbody.useGravity = true;
+
+        }
     }
 
     void FixedUpdate()
