@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
         float duration = 2f;
         DOTween.To(() => bananaTargetSpeed, x => bananaTargetSpeed = x, MAX_TARGET_SPEED, duration).OnUpdate(() =>{
             bananaTarget.GetComponent<PathController>().speed = bananaTargetSpeed;
-        });
+        }).OnComplete(()=>{AudioManager.Instance.PlayEngine();});
         float bananaForce = 0f;
         float MAX_BANANA_FORCE = 1000f;
         DOTween.To(() => bananaForce, x => bananaForce = x, MAX_BANANA_FORCE, duration).OnUpdate(() =>{
@@ -40,6 +40,11 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    public Transform GetCurrentPlayer()
+    {
+        return playerList[currentPlayerIndex];
     }
 
 

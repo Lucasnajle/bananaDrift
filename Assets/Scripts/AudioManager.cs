@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour
     {
         audioSources = GetComponentsInChildren<AudioSource>();
         PlayMusic();
-        PlayEngine();
+        
     }
 
     void Update()

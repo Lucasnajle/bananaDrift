@@ -1,12 +1,13 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-using Unity.VisualScripting;
+using TMPro;
 public class UIController : MonoBehaviour
 {
     public static UIController Instance;
 
     public Image mainMenu;
+    public TextMeshProUGUI remainingDistanceText;
     public Image gameplayUI;
     public Image[] lifes;
      void Awake(){
@@ -20,6 +21,11 @@ public class UIController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetRemainingText(string txt)
+    {
+        remainingDistanceText.text = txt;
     }
 
     public void GameStart()
