@@ -12,7 +12,7 @@ public class PathController : MonoBehaviour
     private float splineLength;
 
     public float remainingDistance = 0;
-
+    public bool isFinished = false;
 
 
     private void Awake()
@@ -25,23 +25,25 @@ public class PathController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (distancePercentage >= 1)
-            return;
-        distancePercentage += speed * Time.deltaTime / splineLength;
-        remainingDistance = splineLength - (splineLength * distancePercentage);
+        if (!isFinished) {
+            if (distancePercentage >= 1)
+                return;
+            distancePercentage += speed * Time.deltaTime / splineLength;
+            remainingDistance = splineLength - (splineLength * distancePercentage);
 
-        SetDistanceText();
-        Vector3 currentPosition = spline.EvaluatePosition(distancePercentage);
-        transform.position = currentPosition;
+            SetDistanceText();
+            Vector3 currentPosition = spline.EvaluatePosition(distancePercentage);
+            transform.position = currentPosition;
 
-        if (distancePercentage > 1f)
-        {
-            distancePercentage = 0f;
+            if (distancePercentage > 1f)
+            {
+                GameController.Instance.Win();
+            }
+
+            Vector3 nextPosition = spline.EvaluatePosition(distancePercentage + 0.05f);
+            Vector3 direction = nextPosition - currentPosition;
+            transform.rotation = Quaternion.LookRotation(direction, transform.up);
         }
-
-        Vector3 nextPosition = spline.EvaluatePosition(distancePercentage + 0.05f);
-        Vector3 direction = nextPosition - currentPosition;
-        transform.rotation = Quaternion.LookRotation(direction, transform.up);
     }
 
     private void SetDistanceText()
