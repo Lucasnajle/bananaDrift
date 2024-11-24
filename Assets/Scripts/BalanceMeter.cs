@@ -30,7 +30,7 @@ public class BalanceMeter : MonoBehaviour
         arrow = GetComponentsInChildren<Image>()[1];
         hips = GameController.Instance.GetCurrentPlayer().GetComponent<Player>().hip;  
         handle = GameController.Instance.banana.GetChild(0);
-        print(handle.name);  
+        //print(handle.name);  
    
         initialDistance = handle.position.x - hips.position.x;
 

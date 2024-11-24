@@ -31,7 +31,7 @@ public class UIController : MonoBehaviour
     public void GameStart()
     {
         mainMenu.transform.DOLocalMoveY(1000,.75f).SetEase(Ease.OutCubic);
-        gameplayUI.transform.DOLocalMoveY(0,.75f).SetEase(Ease.OutCubic).SetDelay(.3f);
+        gameplayUI.transform.DOLocalMoveY(0,.75f).SetEase(Ease.OutCubic).SetDelay(2f);
         AudioManager.Instance.PlayEngine();
         GameController.Instance.StartGame();
     }
@@ -42,6 +42,11 @@ public class UIController : MonoBehaviour
         {
             lifes[i].enabled = false;
         }
+    }
+
+    public void GameQuit()
+    {
+        Application.Quit();
     }
     
 
