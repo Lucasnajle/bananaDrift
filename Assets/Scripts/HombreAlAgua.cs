@@ -9,6 +9,7 @@ public class HombreAlAgua : MonoBehaviour
     {
         if (other == planeCollider)
         {
+            AudioManager.Instance.PlayAudio(0);
             Debug.Log("Entered the trigger zone of the plane!");
             Instantiate(particlePrefab, transform.position, Quaternion.identity);
 

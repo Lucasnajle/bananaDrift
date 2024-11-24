@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
     public Image mainMenu;
     public Image winUI;
     public Image loseUI;
+    public Image creditsUI;
     public TextMeshProUGUI remainingDistanceText;
     public Image gameplayUI;
     public Image[] lifes;
@@ -33,8 +34,8 @@ public class UIController : MonoBehaviour
 
     public void GameStart()
     {
-        mainMenu.transform.DOLocalMoveY(1000,.75f).SetEase(Ease.OutCubic);
-        gameplayUI.transform.DOLocalMoveY(0,.75f).SetEase(Ease.OutCubic).SetDelay(2f);
+        
+        gameplayUI.transform.DOLocalMoveY(100,.75f).SetEase(Ease.OutCubic).SetDelay(2f);
         AudioManager.Instance.PlayEngine();
         GameController.Instance.StartGame();
     }
@@ -50,6 +51,22 @@ public class UIController : MonoBehaviour
         gameplayUI.transform.DOLocalMoveY(1000,.75f).SetEase(Ease.OutCubic);
         loseUI.transform.DOLocalMoveY(0,.75f).SetEase(Ease.OutCubic).SetDelay(2f);
     }
+
+    public void CreditsShow()
+    {
+        mainMenu.transform.DOLocalMoveY(1000,.75f).SetEase(Ease.OutCubic);
+        creditsUI.transform.DOLocalMoveY(0,.75f).SetEase(Ease.OutCubic);
+
+        
+    }
+    public void CreditsHide()
+    {
+        mainMenu.transform.DOLocalMoveY(75,.75f).SetEase(Ease.OutCubic);
+        creditsUI.transform.DOLocalMoveY(-1400,.75f).SetEase(Ease.OutCubic);
+
+        
+    }
+    
 
     public void SetHealthAmt(int health)
     {

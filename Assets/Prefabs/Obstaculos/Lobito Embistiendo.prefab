@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 7122640577205945996}
+  SFXIdx: 7
   launchSpeed: -10
 --- !u!1001 &4754547381345256680
 PrefabInstance:
