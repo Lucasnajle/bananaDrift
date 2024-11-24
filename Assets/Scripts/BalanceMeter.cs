@@ -17,29 +17,29 @@ public class BalanceMeter : MonoBehaviour
 
     public Vector3 startingPos = Vector3.zero;
 
-    public Transform hips;
-    public Transform handle;
-
-
+    private Transform hips;
+    private Transform handle;
 
     private float initialDistance = 0;
     private float currentDistance = 0;
-
     public float HIPS_OFFSET = 10;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         arrow = GetComponentsInChildren<Image>()[1];
-
-        initialDistance = handle.position.x - hips.position.x;//Vector3.Distance(hips.position, handle.position);
+        hips = GameController.Instance.GetCurrentPlayer().GetComponent<Player>().hip;  
+        handle = GameController.Instance.banana.GetChild(0);
+        //print(handle.name);  
+   
+        initialDistance = handle.position.x - hips.position.x;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentDistance = handle.position.x - hips.position.x;//Vector3.Distance(hips.position, handle.position);
+        currentDistance =  handle.position.x - hips.position.x;
         currentAngle = (initialDistance - currentDistance) * HIPS_OFFSET;
         currentAngle = Mathf.Clamp(currentAngle, -MAX_ANGLE, MAX_ANGLE);
         currentAngleRad = currentAngle * Mathf.Deg2Rad;
