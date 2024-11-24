@@ -19,13 +19,13 @@ public class GameController : MonoBehaviour
     {
         cameras[1].SetActive(true);
         float bananaTargetSpeed = 0f;
-        float MAX_TARGET_SPEED = 6f;
-        float duration = 5f;
+        float MAX_TARGET_SPEED = 15f;
+        float duration = 10f;
         DOTween.To(() => bananaTargetSpeed, x => bananaTargetSpeed = x, MAX_TARGET_SPEED, duration).OnUpdate(() =>{
             bananaTarget.GetComponent<PathController>().speed = bananaTargetSpeed;
         }).OnComplete(()=>{AudioManager.Instance.PlayEngine();});
         float bananaForce = 0f;
-        float MAX_BANANA_FORCE = 5000f;
+        float MAX_BANANA_FORCE = 8000f;
         DOTween.To(() => bananaForce, x => bananaForce = x, MAX_BANANA_FORCE, duration).OnUpdate(() =>{
             banana.GetComponent<BananaMovementController>().bananaForce = bananaForce;
         }).SetDelay(1);
