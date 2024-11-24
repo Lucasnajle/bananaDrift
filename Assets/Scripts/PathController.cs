@@ -19,7 +19,7 @@ public class PathController : MonoBehaviour
     {
         splineLength = spline.CalculateLength();
         remainingDistance = splineLength;
-        SetDistanceText();
+        //SetDistanceText();
     }
 
     // Update is called once per frame
@@ -46,6 +46,6 @@ public class PathController : MonoBehaviour
 
     private void SetDistanceText()
     {
-        // UIController.Instance.SetRemainingText($"{remainingDistance.ToString("00")}");
+        UIController.Instance.SetRemainingText($"{remainingDistance.ToString("00")}");
     }
 }
