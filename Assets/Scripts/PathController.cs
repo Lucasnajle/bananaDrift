@@ -14,6 +14,9 @@ public class PathController : MonoBehaviour
     public float remainingDistance = 0;
     public bool isFinished = false;
 
+    public float movementThreshold = 1f;
+    public ParticleSystem particleSystem;
+
 
     private void Awake()
     {
@@ -25,6 +28,8 @@ public class PathController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        BoatParticles();
+
         if (!isFinished) {
             if (distancePercentage >= 1)
                 return;
@@ -40,7 +45,7 @@ public class PathController : MonoBehaviour
                 GameController.Instance.Win();
             }
 
-            Vector3 nextPosition = spline.EvaluatePosition(distancePercentage + 0.05f);
+            Vector3 nextPosition = spline.EvaluatePosition(distancePercentage + 0.005f);
             Vector3 direction = nextPosition - currentPosition;
             transform.rotation = Quaternion.LookRotation(direction, transform.up);
         }
@@ -49,5 +54,28 @@ public class PathController : MonoBehaviour
     private void SetDistanceText()
     {
         UIController.Instance.SetRemainingText($"{remainingDistance.ToString("00")}");
+    }
+
+    private void BoatParticles()
+    {
+        if (particleSystem != null)
+        {
+            // Check if the object's velocity magnitude is greater than the threshold
+            if (speed > movementThreshold)
+            {
+                if (!particleSystem.isPlaying)
+                {
+                    Debug.Log("Play");
+                    particleSystem.Play(); // Start emitting particles if moving
+                }
+            }
+            else
+            {
+                if (particleSystem.isPlaying)
+                {
+                    particleSystem.Stop(); // Stop emitting particles if not moving
+                }
+            }
+        }
     }
 }

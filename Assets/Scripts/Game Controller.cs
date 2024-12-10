@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     {
         cameras[1].SetActive(true);
         float bananaTargetSpeed = 0f;
-        float MAX_TARGET_SPEED = 15f;
+        float MAX_TARGET_SPEED = 10f;
         float duration = 10f;
         DOTween.To(() => bananaTargetSpeed, x => bananaTargetSpeed = x, MAX_TARGET_SPEED, duration).OnUpdate(() =>{
             bananaTarget.GetComponent<PathController>().speed = bananaTargetSpeed;

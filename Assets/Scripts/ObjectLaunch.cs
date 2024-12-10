@@ -1,61 +1,116 @@
 using UnityEngine;
-using System.Collections.Generic;
-using System.Collections;
 
 public class ObjectLaunch : MonoBehaviour
 {
     public GameObject projectilePrefab;
+    GameObject playerBody;
     public Transform launchPoint;
     public float launchForce = 10f;
-    public float adjTrajFactor = 10f;
     public float mass = 10f;
-    public int SFXIdx = 2;
+    public bool invertedModel = false;
+    public bool aimHead = true;
 
     private void OnTriggerEnter(Collider other)
     {
-        
-        if (other.gameObject.name.Contains("Root"))
-        {
-            GameObject projectile = Instantiate(projectilePrefab, launchPoint.position, Quaternion.identity);
-            Debug.Log("PESCAOO");
+        GameObject projectile;        
+        bool shoot = false;
 
-            ThrowProjectile(other.gameObject.transform, projectile);
+        if (aimHead)
+        {
+            if (other.gameObject.name.Contains("Head"))
+            {
+                playerBody = other.gameObject;
+                shoot = true;
+            }
+        }
+        else
+        {
+            if (other.gameObject.name.Contains("Root"))
+            {
+                playerBody = other.gameObject;
+                shoot = true;
+            }
+        }
+
+        if (shoot)
+        {
+            if (invertedModel)
+            {
+                projectile = Instantiate(projectilePrefab, launchPoint.position, Quaternion.Euler(0, -90, 0));
+            }
+            else
+            {
+                projectile = Instantiate(projectilePrefab, launchPoint.position, Quaternion.identity);
+            }
+
+            ThrowProjectile(playerBody, projectile);
         }
     }
 
-
-    void ThrowProjectile(Transform target, GameObject projectile)
+    void ThrowProjectile(GameObject target, GameObject projectile)
     {
-        if (SFXIdx >= 0)
-            AudioManager.Instance.PlayAudio(SFXIdx);
         // Add a Rigidbody component to the projectile
         Rigidbody projectileRb = projectile.AddComponent<Rigidbody>();
         projectileRb.mass = mass;
         projectileRb.useGravity = false;
 
+        // Calculate the direction to hit the target based on its velocity
+        Vector3 aimDirection = CalculateInterceptDirection(target, projectile.transform.position, launchForce);     
+
         // Set the initial velocity of the projectile
-        projectileRb.linearVelocity = launchPoint.forward * launchForce;
+        projectileRb.linearVelocity = aimDirection * launchForce;
 
-        //StartCoroutine(AdjustTrajectory(projectileRb, target));
-
-        Destroy(projectile, 10f); // Destroy the projectile after the specified lifespan
-
+        // Destroy the projectile after a specified lifespan
+        Destroy(projectile, 3f);
     }
-// Coroutine to continuously adjust the trajectory of the projectile
-    IEnumerator AdjustTrajectory(Rigidbody projectileRb, Transform initialTarget)
+
+    Vector3 CalculateInterceptDirection(GameObject target, Vector3 projectilePosition, float projectileSpeed)
     {
-        Transform currentTarget = initialTarget;
+        Rigidbody targetRb = target.GetComponent<Rigidbody>();
+        if (targetRb == null)
+        {
+            Debug.LogError("Target does not have a Rigidbody!");
+            return (target.transform.position - projectilePosition).normalized;
+        }
 
-        Vector3 targetDirection = (currentTarget.position - projectileRb.position).normalized;
+        // Get target's velocity and position
+        Vector3 targetVelocity = targetRb.linearVelocity;
+        Vector3 targetPosition = target.transform.position;
 
-        // Calculate the adjusted direction
-        Vector3 auxiliarVector = Vector3.Cross(projectileRb.linearVelocity.normalized, -targetDirection);
+        // Relative position and velocity
+        Vector3 relativePosition = targetPosition - projectilePosition;
+        Vector3 relativeVelocity = targetVelocity;
 
-        Vector3 perpendicularDirection = Vector3.Cross(projectileRb.linearVelocity.normalized, auxiliarVector);
+        // Solve the quadratic equation for time of impact
+        float a = relativeVelocity.sqrMagnitude - projectileSpeed * projectileSpeed;
+        float b = 2 * Vector3.Dot(relativeVelocity, relativePosition);
+        float c = relativePosition.sqrMagnitude;
 
-        // Apply a force to the projectile
-        projectileRb.AddForce(perpendicularDirection * adjTrajFactor, ForceMode.VelocityChange); // Adjust the force as needed
+        float discriminant = b * b - 4 * a * c;
 
-        yield return null;
+        if (discriminant < 0)
+        {
+            // No real solution, aim directly at the target's current position
+            Debug.LogWarning("No viable intercept course; aiming directly at target.");
+            return relativePosition.normalized;
+        }
+
+        // Calculate the time of impact
+        float t1 = (-b + Mathf.Sqrt(discriminant)) / (2 * a);
+        float t2 = (-b - Mathf.Sqrt(discriminant)) / (2 * a);
+
+        float timeToImpact = Mathf.Max(t1, t2);
+        if (timeToImpact < 0)
+        {
+            // Negative time, no valid interception
+            Debug.LogWarning("Negative intercept time; aiming directly at target.");
+            return relativePosition.normalized;
+        }
+
+        // Calculate the predicted position of the target
+        Vector3 futurePosition = targetPosition + targetVelocity * timeToImpact;
+
+        // Return the direction to the future position
+        return (futurePosition - projectilePosition).normalized;
     }
 }

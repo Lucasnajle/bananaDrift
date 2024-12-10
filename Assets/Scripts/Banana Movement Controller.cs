@@ -6,6 +6,8 @@ public class BananaMovementController : MonoBehaviour
 {
     public List<Transform> waypoints;
     public float bananaForce = 10f;
+    public float safeMinDistance = 5f; 
+    public float safeMaxDistance = 10f;
     public float speedRotation = 2f;
     public float waypointDistance = 1f;
     private int currentIndex = 0;
@@ -39,6 +41,7 @@ public class BananaMovementController : MonoBehaviour
         //MOVIMIENTO GLOBAL - RUTA
         if (waypoints.Count == 0) return;
 
+        //Orientación
         Transform waypointActual = waypoints[currentIndex];
         Vector3 direccionHaciaWaypoint = (waypointActual.position - transform.position).normalized;
 
@@ -49,7 +52,12 @@ public class BananaMovementController : MonoBehaviour
         float anguloDiferencia = Vector3.Angle(transform.forward, direccionHaciaWaypoint);
         float alineacion = Mathf.Clamp01(1f - anguloDiferencia / 90f);
 
-        rb.AddForce(transform.forward * bananaForce * alineacion, ForceMode.Force);
+        //Movimiento lineal
+        float distanceToTarget = Vector3.Distance(transform.position, waypointActual.position);
+        float distanceFactor = Mathf.Clamp01((distanceToTarget - safeMinDistance) / (safeMaxDistance - safeMinDistance));
+        float regulatedForce = bananaForce * distanceFactor;
+
+        rb.AddForce(transform.forward * regulatedForce * alineacion, ForceMode.Force);
 
         if (Vector3.Distance(transform.position, waypointActual.position) < waypointDistance)
         {
@@ -64,8 +72,7 @@ public class BananaMovementController : MonoBehaviour
         float offsetY = Mathf.Sin(Time.time * frequency) * oscilationAmpY;
         float offsetZ = Mathf.Cos(Time.time * frequency) * oscilationAmpZ;
 
-        Vector3 targetPosition = new Vector3(offsetX, offsetY, offsetZ);
-        Vector3 forceDirection = targetPosition;
+        Vector3 forceDirection = new Vector3(offsetX, offsetY, offsetZ);
 
         // Spring force to return the object to its original Y position
         float springForce = (originalPosition.y - rb.position.y) * springStrength;

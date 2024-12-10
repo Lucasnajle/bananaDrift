@@ -10,7 +10,7 @@ public class ObstacleController : MonoBehaviour
         if (theCollider.gameObject.name.Contains("Root")) {
             if (SFXIdx >= 0)
                 AudioManager.Instance.PlayAudio(SFXIdx);
-            GameController.Instance.playerList[GameController.Instance.currentPlayerIndex].GetComponent<ApplyForceOnKeyPress>().ApplyForce(direction + 0.2f * Vector3.up, force);
+            GameController.Instance.playerList[GameController.Instance.currentPlayerIndex].GetComponent<ApplyForceOnKeyPress>().ApplyForce(-direction + 0.5f * Vector3.up, force);
         }
     }
 }
